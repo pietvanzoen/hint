@@ -18,14 +18,8 @@ class NotesRepo
   end
 
   def find(params)
-    if params['book'] then
-      notes = find_all({'book' => params['book']})
-    else
-      notes = find_all
-    end
-    if params['id'] then
-      notes = notes.select { |n| n.id == params['id'].to_i }
-    end
+    notes = params['book'] ? find_all('book' => params['book']) : find_all
+    notes = notes.select { |n| n.id == params['id'].to_i } if params['id']
     notes.first
   end
 

@@ -1,4 +1,4 @@
-require_relative 'pnote_lib'
+require_relative '../lib/pnote_lib'
 require 'yaml'
 require 'test/unit'
 require 'securerandom'

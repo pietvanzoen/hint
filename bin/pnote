@@ -130,9 +130,9 @@ module Print
 
   def self.notes(notes)
     puts "#{notes.count} notes:"
-    notes.each_with_index do |note, index|
-      id = ('%-5.4s' % "(#{note.id})").yellow
-      puts " #{id} #{Util.truncate("#{note.content}", 160)}"
+    notes.each do |note|
+      id = format('%-5.4s', "(#{note.id})").yellow
+      puts " #{id} #{Util.truncate(note.content, 160)}"
     end
   end
 
