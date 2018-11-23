@@ -3,19 +3,18 @@ require 'date'
 require 'fileutils'
 
 class NotesRepo
-
   def initialize(filepath)
     @filepath = filepath
-    File.write(@filepath, '') unless File.exists?(@filepath)
+    File.write(@filepath, '') unless File.exist?(@filepath)
     @notes = fetch_notes
   end
 
   def find_all(params = {})
-    notes = @notes.reject{ |note| note.archived_at }
-    if params['book'] then
-      notes = notes.select{ |note| note.book == params['book'] }
+    notes = @notes.reject(&:archived_at)
+    if params['book']
+      notes = notes.select { |note| note.book == params['book'] }
     end
-    notes.sort { |a, b| a.created_at <=> b.created_at }
+    notes.sort_by(&:created_at)
   end
 
   def find(params)
@@ -39,7 +38,7 @@ class NotesRepo
   end
 
   def update!(id, params = {})
-    note = find({'id' => id })
+    note = find('id' => id)
     note.update!(params)
     save!
     note
@@ -52,28 +51,25 @@ class NotesRepo
   end
 
   def save!
-    if File.exists? @filepath then
-      FileUtils.cp(@filepath, "#{@filepath}~")
-    end
-    hashed_notes = @notes.map{ |note| note.to_hash }
+    FileUtils.cp(@filepath, "#{@filepath}~") if File.exist? @filepath
+    hashed_notes = @notes.map(&:to_hash)
 
     File.write(@filepath, hashed_notes.to_yaml)
     @notes = fetch_notes
   end
 
   def last_id
-    note = @notes.sort_by{ |n| n.id }.reverse.first
+    note = @notes.sort_by(&:id).reverse.first
     return note.id unless note.nil?
   end
 
   def fetch_notes
     notes = YAML.load_file(@filepath) || []
-    notes.map{ |n| Note.new(n) }
+    notes.map { |n| Note.new(n) }
   end
 
   private :save!, :fetch_notes, :last_id
 end
-
 
 class Note
   attr_reader :id, :book, :created_at, :updated_at, :archived_at, :content
@@ -84,17 +80,17 @@ class Note
     @created_at = DateTime.parse(params.fetch('created_at', DateTime.now.to_s))
     @updated_at = DateTime.parse(params.fetch('updated_at', DateTime.now.to_s))
     @archived_at = nil
-    if not params.fetch('archived_at', '').empty? then
+    unless params.fetch('archived_at', '').empty?
       @archived_at = DateTime.parse(params['archived_at'])
     end
   end
 
   def update!(params)
-    if params['content'] then
+    if params['content']
       @content = params['content']
       @updated_at = DateTime.now
     end
-    if params['book'] then
+    if params['book']
       @book = params['book']
       @updated_at = DateTime.now
     end
@@ -106,9 +102,9 @@ class Note
   end
 
   def to_hash
-    h = Hash.new
+    h = {}
     instance_variables.each do |var|
-      h[var.to_s.delete("@")] = instance_variable_get(var).to_s
+      h[var.to_s.delete('@')] = instance_variable_get(var).to_s
     end
     h
   end
