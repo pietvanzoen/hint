@@ -1,0 +1,2 @@
+# hint
+Tiny notes
