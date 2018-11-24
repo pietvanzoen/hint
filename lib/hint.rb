@@ -86,14 +86,9 @@ class Note
   end
 
   def update!(params)
-    if params["content"]
-      @content = params["content"]
-      @updated_at = Time.now
-    end
-    if params["book"]
-      @book = params["book"]
-      @updated_at = Time.now
-    end
+    @content = params["content"] if params["content"]
+    @book = params["book"] if params["book"]
+    @updated_at = Time.now
   end
 
   def archive!
