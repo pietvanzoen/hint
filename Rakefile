@@ -1,3 +1,5 @@
+task default: %w[lint test]
+
 task :test do
   ruby "test/hint_test.rb"
 end
