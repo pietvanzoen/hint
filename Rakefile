@@ -1,5 +1,5 @@
 task :test do
-  ruby "test/pnote_test.rb"
+  ruby "test/hint_test.rb"
 end
 
 task :lint do
