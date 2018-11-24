@@ -93,7 +93,7 @@ class Hint
 
   def edit_note(params)
     front_matter = {
-      "book" => params.fetch("book")
+      "book" => params.fetch("book"),
     }
     content = params.fetch("content", "")
     template = "#{front_matter.to_yaml}\n---\n#{content}"
