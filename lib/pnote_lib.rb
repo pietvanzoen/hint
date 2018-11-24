@@ -1,30 +1,32 @@
-require 'yaml'
-require 'date'
-require 'fileutils'
+require "yaml"
+require "time"
+require "fileutils"
 
+# Handles fetching, creating, and editing of notes.
+# @param filepath [String] Path to notes yaml file.
 class NotesRepo
   def initialize(filepath)
     @filepath = filepath
-    File.write(@filepath, '') unless File.exist?(@filepath)
+    File.write(@filepath, "") unless File.exist?(@filepath)
     @notes = fetch_notes
   end
 
   def find_all(params = {})
     notes = @notes.reject(&:archived_at)
-    if params['book']
-      notes = notes.select { |note| note.book == params['book'] }
+    if params["book"]
+      notes = notes.select { |note| note.book == params["book"] }
     end
     notes.sort_by(&:created_at)
   end
 
   def find(params)
-    notes = params['book'] ? find_all('book' => params['book']) : find_all
-    notes = notes.select { |n| n.id == params['id'].to_i } if params['id']
+    notes = params["book"] ? find_all("book" => params["book"]) : find_all
+    notes = notes.select { |n| n.id == params["id"].to_i } if params["id"]
     notes.first
   end
 
   def create!(params)
-    params['id'] = last_id + 1
+    params["id"] = last_id + 1
     new_note = Note.new(params)
     @notes.push(new_note)
     save!
@@ -32,7 +34,7 @@ class NotesRepo
   end
 
   def update!(id, params = {})
-    note = find('id' => id)
+    note = find("id" => id)
     note.update!(params)
     save!
     note
@@ -65,40 +67,48 @@ class NotesRepo
   private :save!, :fetch_notes, :last_id
 end
 
+# Note model
+# @param id [String]
+# @param book [String]
+# @param content [String]
+# @param created_at [Time]
+# @param updated_at [Time]
+# @param archived_at [Time]
 class Note
   attr_reader :id, :book, :created_at, :updated_at, :archived_at, :content
+
   def initialize(params = {})
-    @id = params.fetch('id').to_i
-    @book = params.fetch('book')
-    @content = params.fetch('content', '')
-    @created_at = DateTime.parse(params.fetch('created_at', DateTime.now.to_s))
-    @updated_at = DateTime.parse(params.fetch('updated_at', DateTime.now.to_s))
+    @id = params.fetch("id").to_i
+    @book = params.fetch("book")
+    @content = params.fetch("content", "")
+    @created_at = Time.parse(params.fetch("created_at", Time.now.to_s))
+    @updated_at = Time.parse(params.fetch("updated_at", Time.now.to_s))
     @archived_at = nil
-    unless params.fetch('archived_at', '').empty?
-      @archived_at = DateTime.parse(params['archived_at'])
+    unless params.fetch("archived_at", "").empty?
+      @archived_at = Time.parse(params["archived_at"])
     end
   end
 
   def update!(params)
-    if params['content']
-      @content = params['content']
-      @updated_at = DateTime.now
+    if params["content"]
+      @content = params["content"]
+      @updated_at = Time.now
     end
-    if params['book']
-      @book = params['book']
-      @updated_at = DateTime.now
+    if params["book"]
+      @book = params["book"]
+      @updated_at = Time.now
     end
   end
 
   def archive!
-    @archived_at = DateTime.now
-    @updated_at = DateTime.now
+    @archived_at = Time.now
+    @updated_at = Time.now
   end
 
   def to_hash
     h = {}
     instance_variables.each do |var|
-      h[var.to_s.delete('@')] = instance_variable_get(var).to_s
+      h[var.to_s.delete("@")] = instance_variable_get(var).to_s
     end
     h
   end
