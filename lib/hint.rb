@@ -13,9 +13,7 @@ class NotesRepo
 
   def find_all(params = {})
     notes = @notes.reject(&:archived_at)
-    if params["book"]
-      notes = notes.select { |note| note.book == params["book"] }
-    end
+    notes = notes.select { |note| note.book == params["book"] } if params["book"]
     notes.sort_by(&:created_at)
   end
 
@@ -84,9 +82,7 @@ class Note
     @created_at = Time.parse(params.fetch("created_at", Time.now.to_s))
     @updated_at = Time.parse(params.fetch("updated_at", Time.now.to_s))
     @archived_at = nil
-    unless params.fetch("archived_at", "").empty?
-      @archived_at = Time.parse(params["archived_at"])
-    end
+    @archived_at = Time.parse(params["archived_at"]) unless params.fetch("archived_at", "").empty?
   end
 
   def update!(params)

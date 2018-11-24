@@ -93,7 +93,7 @@ class Hint
 
   def edit_note(params)
     front_matter = {
-      "book" => params.fetch("book"),
+      "book" => params.fetch("book")
     }
     content = params.fetch("content", "")
     template = "#{front_matter.to_yaml}\n---\n#{content}"
@@ -102,7 +102,7 @@ class Hint
     md = File.read(TEMP_CONTENT_FILE)
     data = {
       "book" => YAML.safe_load(md).fetch("book", "").strip || front_matter["book"],
-      "content" => md.split("---").last.strip,
+      "content" => md.split("---").last.strip
     }
     if data["content"].empty?
       puts "Note content is required."
