@@ -1,6 +1,14 @@
 # hint [![Build Status](https://travis-ci.com/pietvanzoen/hint.svg?branch=master)](https://travis-ci.com/pietvanzoen/hint)
 Tiny notes
 
+## Install
+
+Ensure ruby is available in your environment, then:
+
+```
+curl -L scripts.piet.me/hint/install | bash
+```
+
 ## Usage
 ```
 USAGE: hint [command]
