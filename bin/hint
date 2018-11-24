@@ -150,19 +150,19 @@ module Print
   def self.help(cmd = nil)
     case cmd
     when "a", "add"
-      msg = "USAGE: dnote add <book>
+      msg = "USAGE: hint add <book>
 Add a new note. $EDITOR will open for input."
     when "e", "edit"
-      msg = "USAGE: dnote edit <note id>
+      msg = "USAGE: hint edit <note id>
 Edit a note."
     when "remove"
-      msg = "USAGE: dnote remove <note id>
+      msg = "USAGE: hint remove <note id>
 Remove a note."
     when "view", "v"
-      msg = "USAGE: dnote view [<book|note id>]
+      msg = "USAGE: hint view [<book|note id>]
 List books, notes, or view a single note."
     else
-      msg = "USAGE: dnote [command]
+      msg = "USAGE: hint [command]
 
 Available commands:
   add, a      Add a note
