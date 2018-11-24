@@ -5,9 +5,9 @@ task :test do
 end
 
 task :lint do
-  sh "rubocop"
+  sh "bundle exec rubocop"
 end
 
 task :fmt do
-  sh "rufo ."
+  sh "bundle exec rufo ."
 end
