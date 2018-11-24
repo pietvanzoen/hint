@@ -100,9 +100,10 @@ class Hint
     File.write(TEMP_CONTENT_FILE, template)
     system((ENV["EDITOR"]).to_s, TEMP_CONTENT_FILE)
     md = File.read(TEMP_CONTENT_FILE)
+    content_parts = md.split("---")
     data = {
       "book" => YAML.safe_load(md).fetch("book", "").strip || front_matter["book"],
-      "content" => md.split("---").last.strip
+      "content" => content_parts[2..content_parts.count].join("---").strip,
     }
     if data["content"].empty?
       puts "Note content is required."
