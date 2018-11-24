@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require_relative "../lib/hint"
+require "tmpdir"
 
 def main
   hint = Hint.new
@@ -23,13 +24,10 @@ def main
 end
 
 class Hint
-  HINT_DIR = ENV["HINT_DIR"] || "#{Dir.home}/.hint"
-  TEMP_CONTENT_FILE = "#{HINT_DIR}/HINT_TEMPCONENT.md".freeze
-  HINT_DB = "#{HINT_DIR}/hint_db.yml".freeze
+  TEMP_CONTENT_FILE = "#{Dir.tmpdir}/HINT_TEMPCONENT.md".freeze
+  HINT_DB = ENV["HINT_DB"] || "#{Dir.home}/.hint_db.yml".freeze
 
   def initialize
-    FileUtils.mkdir_p(HINT_DIR) unless Dir.exist?(HINT_DIR)
-
     @repo = NotesRepo.new(HINT_DB)
   end
 
@@ -173,7 +171,7 @@ Available commands:
   remove      Remove a note or a book
   view, v     List books, notes or view a content
 
-Data is stored in ~/.hint/ by default. You can override this by setting $HINT_DIR in your environment."
+Data is stored in ~/.hint_db.yml by default. You can override this by setting $HINT_DB in your environment."
     end
 
     puts msg.strip
