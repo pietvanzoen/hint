@@ -1,7 +1,6 @@
 require_relative "../lib/hint"
 require "yaml"
 require "test/unit"
-require "securerandom"
 require "tempfile"
 
 class TestNote < Test::Unit::TestCase
@@ -91,7 +90,7 @@ class TestNotesRepo < Test::Unit::TestCase
   end
 
   def test_create!
-    params = {"book" => "bash", "content" => SecureRandom.alphanumeric}
+    params = {"book" => "bash", "content" => "hey this is new content"}
     @repo.create!(params)
     assert_equal(@active_notes.count + 1, @repo.find_all.length)
     assert_equal(params["content"], @repo.find_all[3].content)
