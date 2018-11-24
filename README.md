@@ -12,5 +12,5 @@ Available commands:
   remove      Remove a note or a book
   view, v     List books, notes or view a content
 
-Data is stored in ~/.hint/ by default. You can override this by setting $HINT_DIR in your environment.
+Data is stored in ~/.hint_db.yml by default. You can override this by setting $HINT_DB in your environment.
 ```
