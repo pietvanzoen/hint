@@ -1,0 +1,8 @@
+language: ruby
+
+install:
+  - bundle install
+
+script:
+  - rake lint
+  - rake test
