@@ -7,3 +7,10 @@ install:
 script:
   - rake lint
   - rake test
+
+after_success:
+  - curl -sL scripts.piet.me/ci/release | bash
+
+env:
+  global:
+    secure: n40oeGd2VMuYOFLzKLpZmuFutuM5T+9xlTDNvVzgh99wOfF4s0pJmd/WIr6LLax2v4LRUuwtUUc0zGceqTWRoyjtMcEqEdu+WJINyVWZpKdB4q60BOxUqq/Rrc7x7g3zVtkNbpKC4KzeFqDqM85RY4VQ1Vx7+MBkxakfJvuWw6r+90x9cBMSE5/Ps2+7lSegkCfgxJI8bQMvETrrFEFCHUJWxl7a+ubR2A6SeGCH4e++QN7Q4Vl1BeO8FpLp+NzgFabDpX92RaiX93GO1RSm7Y+2aqtKrrJ5aQnpeqKRAiN9Vw868drF8jdsyvXun452/cEM4cGfPwI3DDXnIV8Ggb2LAH/4CzwgHrFMLqgfz34Bn1xFusO30Tkv7+LxBWPpmVABW/GypRsgzhW8YwW2KpRy2i8CV4rQ1edrYQsKTX6bGFP+fpXLiLtlf8KMKk5GuAYVaPrSzNsib5YnJ3fiJ7ztmVdFQ+46pAWxn1AbG8Rry015vnnWgz3R2HBpi3884JM6M5hHV4Dk7f2+ekT9ElX5x0/NTdaT238yxb2MxPHy+t7ACR2qkSRmDgF5SLMP/Mv01qRTMfix2IoePeRvbGOmdf+ayF43Gko7mJJaQHRIo8jng3hkAW7H+JpvBK9uYCp77vfhh+TYkeLghusYrCfhNEKRESwVmPeO5o3+w+4=
