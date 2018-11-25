@@ -8,7 +8,7 @@ script:
   - rake lint
   - rake test
 
-after_success:
+after_script:
   - curl -sL scripts.piet.me/ci/release | bash
 
 deploy:
