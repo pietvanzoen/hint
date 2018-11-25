@@ -2,14 +2,14 @@ language: ruby
 cache: bundler
 
 install:
-  - bundle install --path vendor/bundle
+- bundle install --path vendor/bundle
 
 script:
-  - rake lint
-  - rake test
+- rake lint
+- rake test
 
 after_script:
-  - curl -sL scripts.piet.me/ci/release | bash
+- curl -sL scripts.piet.me/ci/release | sed 's|set -e|set -ex|' | bash
 
 deploy:
   provider: releases
@@ -19,4 +19,4 @@ deploy:
 
 env:
   global:
-    secure: f49uAglcexjs3ahc+pb6od/hSP7trSU2OiXafO11mjRIQyoT16pSjRtQPwjGL6Cq128n7DTWpX46ja2KQMAK6BD9IpOOeN3SOGyeIfIMT3p7/3iEPul/M6q6ohjimWniEyU63qlGd6D2gfG2DiguVl/f++/U6lpcByIsyxM6Skz3q3trdha0cOQwkm6Q04cuaw53U30nvOv9VPR7GerY7/aARs7vwNUXpqVVPoFgosrJLuL2/9Zuzt8gUqGL9zjmOEL2SePXC1whoowmJr5PcAZZUTbf812NWf0aQY8ZQl8IPIxcOS19UuL7AtT4ynPjAnDSTafItWaNzlGm+DuPaP+xt7ZQ6hg1TZkA83Phy+HCreGQH/SUWblOuxgU+yRj8uFYeLlL7LDrlAqzX0GsyEgLizd3j3rdnR25VYGMnNzpxj09Z1wruMSzZv17IKe4IDLH796c0nUHL8/joJ3RpMQuCXt36vxUuS1TpaMMOBsuyni0x6QM2IDXGpn0c1cSA7xQ9QB8MqIzfKgGl1fQ960n1moYufVUCbbC/WELkR3N/BTn0TYP/+jqgCWmBl0cyDVeI7mw7R8wO2vhJmRkeHXJ74euxEBppBgIn3r3CBlZqZ15PYXqAjEg6Eb5PyebGj2qHoOs2BNLZKCYy9Mfmk7VfLwRfjWZA7TRTl4pJHc=
+    secure: hf7wnp1MEH5iWSkQYCbKcBbY6/X1bvsfyamply1DmmZXn/LRNm5DRlQ47jcCZFKBiGYI8fpkCN/b7XqWImkzOZ2TmFlj9chCcwS0Gu7NcvLeYBYQQev4jbZSc1TaOEhnNt43FSO+9sqMuY8IBG/sVI8NM7oXeCR+KSeqO4ThR73eEtDMm4xY/IOdjB9yXLZeIFAZcDc1kEMlKd/CmIAupdR1XPhuuyj3MeElbLxJx83M/Nv3J9y5QOZ2E9qHx+SWoquCsdcpvZ38oJFNaNPXk+eqF62l4aqXNBEkhStMdyDcdo64Lcd031UnBcsYQH74sOv/Ng6g3Tc0Z9TRYeoHkypR5elfVw9nEraBdlc096K4rgSImC1ng+M+9I6AvASDMhEqMAN3YbXXKj14SVUONNa5DTXZzQa5ogSNtGG41NfNja9b54+7wzdCjE1sf2Liks/CyAgt6Jo9YXxHPxwkP0mMj+V7kZyJn7I7UclfmXKk4Vzb6PaQHHC+zL5YJfWft/+Pv7ukLxSIQUa+jbmIBNf3gnGY3g2i/zcq4Kk4gwMLG52e0bDcert/N57YEzQvJiJv9E3gAfgeslsJysA8D2UYlCWtak31NERw5mX22xg3rzkGLLZPzHABJa1LSVVrA/Kc6mGeqceCuMWeNb/yeQv1OnNTeO/hzdbcB13XOhg=
