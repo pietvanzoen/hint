@@ -54,7 +54,7 @@ class NotesRepo
 
   def last_id
     note = @notes.sort_by(&:id).reverse.first
-    return note.id unless note.nil?
+    note.nil? ? 0 : note.id
   end
 
   def fetch_notes
