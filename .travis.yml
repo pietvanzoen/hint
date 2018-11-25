@@ -1,21 +1,7 @@
-language: ruby
-cache: bundler
-
-install:
-- bundle install --path vendor/bundle
+language: python
 
 script:
-- rake lint
-- rake test
-
-after_script:
-- curl -sL scripts.piet.me/ci/release | sed 's|set -e|set -ex|' | bash
-
-deploy:
-  provider: releases
-  api_key: "$GITHUB_TOKEN"
-  on:
-    tags: true
+  - echo hi
 
 env:
   global:
