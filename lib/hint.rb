@@ -14,6 +14,7 @@ class NotesRepo
   def find_all(params = {})
     notes = @notes.reject(&:archived_at)
     notes = notes.select { |note| note.book == params["book"] } if params["book"]
+    notes = notes.select { |note| note.created_at >= params["since_date"] } if params["since_date"]
     notes.sort_by(&:created_at)
   end
 

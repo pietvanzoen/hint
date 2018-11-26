@@ -2,7 +2,7 @@
 require_relative "../lib/hint"
 require "tmpdir"
 
-def main
+def main # rubocop:disable Metrics/CyclomaticComplexity
   hint = Hint.new
   cmd = ARGV[0]
   case cmd
@@ -14,6 +14,8 @@ def main
     hint.edit_cmd
   when "remove"
     hint.remove_cmd
+  when "since"
+    hint.since_cmd
   when "help", "h", nil
     Print.help(ARGV[1])
   else
@@ -79,6 +81,18 @@ class Hint
     @repo.archive!("id" => note.id)
   end
 
+  def since_cmd
+    assert_max_arg_count 2
+    date_string = ARGV[1]
+    begin
+      date = Time.parse(date_string)
+    rescue ArgumentError => e
+      puts "Could not parse date string: #{e.message}"
+      exit(1)
+    end
+    Print.notes(@repo.find_all("since_date" => date), true)
+  end
+
   def get_note_from_args
     cmd = ARGV[0]
     id = ARGV[1]
@@ -127,11 +141,12 @@ module Print
     end
   end
 
-  def self.notes(notes)
+  def self.notes(notes, print_book_name = false)
     puts "#{notes.count} notes:"
     notes.each do |note|
       id = format("%-5.4s", "(#{note.id})").yellow
-      puts " #{id} #{Util.truncate(note.content, 160)}"
+      book_name = " #{note.book} - " if print_book_name
+      puts " #{id} #{book_name}#{Util.truncate(note.content, 160)}"
     end
   end
 
@@ -148,7 +163,7 @@ module Print
     puts "----------------------"
   end
 
-  def self.help(cmd = nil)
+  def self.help(cmd = nil) # rubocop:disable Metrics/MethodLength
     case cmd
     when "a", "add"
       msg = "USAGE: hint add <book>
@@ -162,6 +177,11 @@ Remove a note."
     when "view", "v"
       msg = "USAGE: hint view [<book|note id>]
 List books, notes, or view a single note."
+    when "since"
+      msg = "USAGE: hint since <date string>
+List all notes since date. e.g. `hint since '2018-01-01'`.
+
+Tip: Use with unix date command: `hint since \"$(date --date='1 week ago')\"`"
     else
       msg = "USAGE: hint [command]
 
@@ -171,6 +191,7 @@ Available commands:
   help        Help about any command
   remove      Remove a note or a book
   view, v     List books, notes or view a content
+  since       Print all notes since given date.
 
 Data is stored in ~/.hint_db.yml by default. You can override this by setting $HINT_DB in your environment."
     end

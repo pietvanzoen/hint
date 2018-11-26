@@ -84,6 +84,13 @@ class TestNotesRepo < Test::Unit::TestCase
     assert_equal(git_notes.length, 2)
   end
 
+  def test_find_all_since
+    notes = @repo.find_all("since_date" => Time.parse("2018-02-01"))
+    note_ids = notes.map(&:id)
+    assert_equal(2, notes.count)
+    assert_equal(false, note_ids.include?(@note_jan.id))
+  end
+
   def test_find_note_id
     note = @repo.find("id" => @note_mar.id)
     assert_equal(@note_mar.content, note.content)
