@@ -1,22 +1,17 @@
 language: ruby
 cache: bundler
-
 install:
   - bundle install --path vendor/bundle
-
 script:
   - rake lint
   - rake test
-
 after_script:
   - curl -sL scripts.piet.me/ci/release | bash
-
 deploy:
   provider: releases
   api_key: "$GITHUB_TOKEN"
   on:
     tags: true
-
 env:
   global:
-    secure: f49uAglcexjs3ahc+pb6od/hSP7trSU2OiXafO11mjRIQyoT16pSjRtQPwjGL6Cq128n7DTWpX46ja2KQMAK6BD9IpOOeN3SOGyeIfIMT3p7/3iEPul/M6q6ohjimWniEyU63qlGd6D2gfG2DiguVl/f++/U6lpcByIsyxM6Skz3q3trdha0cOQwkm6Q04cuaw53U30nvOv9VPR7GerY7/aARs7vwNUXpqVVPoFgosrJLuL2/9Zuzt8gUqGL9zjmOEL2SePXC1whoowmJr5PcAZZUTbf812NWf0aQY8ZQl8IPIxcOS19UuL7AtT4ynPjAnDSTafItWaNzlGm+DuPaP+xt7ZQ6hg1TZkA83Phy+HCreGQH/SUWblOuxgU+yRj8uFYeLlL7LDrlAqzX0GsyEgLizd3j3rdnR25VYGMnNzpxj09Z1wruMSzZv17IKe4IDLH796c0nUHL8/joJ3RpMQuCXt36vxUuS1TpaMMOBsuyni0x6QM2IDXGpn0c1cSA7xQ9QB8MqIzfKgGl1fQ960n1moYufVUCbbC/WELkR3N/BTn0TYP/+jqgCWmBl0cyDVeI7mw7R8wO2vhJmRkeHXJ74euxEBppBgIn3r3CBlZqZ15PYXqAjEg6Eb5PyebGj2qHoOs2BNLZKCYy9Mfmk7VfLwRfjWZA7TRTl4pJHc=
+    secure: KSAQCUSc4loLFxGmdlc94REPMgwZhmowyoFcKSedMVVTJLQhcc+uPLHDcGRX3JCN8mnOa4wrnv2sgSUfZyLTztUnUBZo5XS7dF9zv9xzEuAhMH8Aqtk24Fab0cJlBrYGXWZDqb9qjPMSxuWACjEN5czhH7+b7FBcqisTgkWXqHXOJN6sWU2fZqMNADKtMQsC9R9x6vE6Beq7+eN5D1c560pzTIQXV+bcC5ffTUBvBMpSMLmiYrh2+Au+pkWslVgZ7Xw36sh/uSauoLnKPecXgRnO2mDwmi1BbjNiS7b/p8f7/2lfLyi6PAI93IsasWmb1OPIS58ecO8FH22BR5n/9bZjQ27+mfB4H6hnTiFIxpVI47Ln8p8ADm/dArST9SljtOv93IToOKkCzrpXC3SCNVST1c2rr5F2ntJpBfDuloK16nMsHPVIJj082XfbYrjfyZIupxKXt3t3H7FOtiuHhbZBRAnd72ZdguPa2U1fVqmxgsx+oVjf7u5mTMfxfDwHGQRLMivCY9OyZwZfo1PGruQ2SlA4ITngXUHmAcF5Wvp65Qa6jc1fZa/hQRPY56aQty59n2F+IaBWgaljm9e4wwG8mfhH69+YcO3NcwP+T72/lhqS60eoorMCKFjxJbWIUo4IidWVFaulOvna9HdLudClPs4oVQo7IUSd0umTXJ4=
