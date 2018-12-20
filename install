@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+set -e
+
+if ! command -v ruby >/dev/null; then
+  echo "Install Ruby before installing hint"
+  exit 1
+fi
+
+if ! command -v rake >/dev/null; then
+  echo "Install rake before installing hint"
+  exit 1
+fi
+
+rake install
