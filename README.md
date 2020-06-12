@@ -1,4 +1,4 @@
-# hint [![Build Status](https://travis-ci.com/pietvanzoen/hint.svg?branch=master)](https://travis-ci.com/pietvanzoen/hint)
+# hint [![Build Status](https://travis-ci.com/pietvanzoen/hint.svg?branch=main)](https://travis-ci.com/pietvanzoen/hint)
 Tiny notes
 
 ## Install
